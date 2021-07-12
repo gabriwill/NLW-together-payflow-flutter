@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class InsertBoletoController {
   final formKey = GlobalKey<FormState>();
-  BoletoModel model = BoletoModel();
+  BoletoModel model = BoletoModel(primaryKey: UniqueKey());
 
   String? validateName(String? value) =>
       value?.isEmpty ?? true ? "O nome não pode ser vazio" : null;

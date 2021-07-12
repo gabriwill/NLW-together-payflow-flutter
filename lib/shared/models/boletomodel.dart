@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class BoletoModel {
+  final UniqueKey primaryKey;
   final String? name;
   final String? dueDate;
   final double? value;
   final String? barcode;
 
   BoletoModel({
+    required this.primaryKey,
     this.name,
     this.dueDate,
     this.value,
@@ -20,6 +24,7 @@ class BoletoModel {
     String? barcode,
   }) {
     return BoletoModel(
+      primaryKey: UniqueKey(),
       name: name ?? this.name,
       dueDate: dueDate ?? this.dueDate,
       value: value ?? this.value,
@@ -29,6 +34,7 @@ class BoletoModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'primaryKey': primaryKey,
       'name': name,
       'dueDate': dueDate,
       'value': value,
@@ -38,6 +44,7 @@ class BoletoModel {
 
   factory BoletoModel.fromMap(Map<String, dynamic> map) {
     return BoletoModel(
+      primaryKey: map['primaryKey'],
       name: map['name'],
       dueDate: map['dueDate'],
       value: map['value'],
@@ -68,6 +75,10 @@ class BoletoModel {
 
   @override
   int get hashCode {
-    return name.hashCode ^ dueDate.hashCode ^ value.hashCode ^ barcode.hashCode;
+    return primaryKey.hashCode ^
+        name.hashCode ^
+        dueDate.hashCode ^
+        value.hashCode ^
+        barcode.hashCode;
   }
 }
