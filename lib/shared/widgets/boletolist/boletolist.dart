@@ -1,6 +1,7 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/models/boletomodel.dart';
+import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 import 'package:payflow/shared/widgets/boletotile/boletotile.dart';
 
@@ -31,7 +32,10 @@ class _BoletoListState extends State<BoletoList> {
                         onRemove: () {},
                         initDelay: Duration(milliseconds: 0),
                         duration: Duration(milliseconds: 400),
-                        child: BoletoTile(data: e),
+                        child: Container(
+                          color: AppColors.background,
+                          child: BoletoTile(data: e),
+                        ),
                       ))
                   .toList(),
             ));

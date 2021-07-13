@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class BoletoModel {
-  final UniqueKey primaryKey;
+  final String primaryKey;
   final String? name;
   final String? dueDate;
   final double? value;
@@ -17,6 +17,8 @@ class BoletoModel {
     this.barcode,
   });
 
+  static String generateKey() => UniqueKey().hashCode.toString();
+
   BoletoModel copyWith({
     String? name,
     String? dueDate,
@@ -24,7 +26,7 @@ class BoletoModel {
     String? barcode,
   }) {
     return BoletoModel(
-      primaryKey: UniqueKey(),
+      primaryKey: generateKey(),
       name: name ?? this.name,
       dueDate: dueDate ?? this.dueDate,
       value: value ?? this.value,
@@ -34,7 +36,7 @@ class BoletoModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'primaryKey': primaryKey.toString(),
+      'primaryKey': primaryKey,
       'name': name,
       'dueDate': dueDate,
       'value': value,
