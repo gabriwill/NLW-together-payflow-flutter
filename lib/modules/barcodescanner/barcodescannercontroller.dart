@@ -114,7 +114,7 @@ class BarcodeScannerController {
   void dispose() {
     statusNotifier.dispose();
     barcodeScanner.close();
-    if (status.showCamera) {
+    if (status.showCamera || cameraController != null) {
       cameraController!.dispose();
     }
   }

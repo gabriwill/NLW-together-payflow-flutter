@@ -17,7 +17,6 @@ class _BarCodeScannerState extends State<BarCodeScanner> {
   final controller = BarcodeScannerController();
   @override
   void initState() {
-    // TODO: implement initState
     controller.getAvailableCamera();
     controller.statusNotifier.addListener(() {
       if (controller.status.hasBarcode) {
@@ -30,7 +29,6 @@ class _BarCodeScannerState extends State<BarCodeScanner> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller.dispose();
     super.dispose();
   }
@@ -92,9 +90,11 @@ class _BarCodeScannerState extends State<BarCodeScanner> {
               ),
               bottomNavigationBar: SetLabelButtons(
                   primaryLabel: "Insira o código de barras",
-                  primaryonPressed: () {},
+                  primaryonPressed: () {
+                    controller.status = BarCodeScannerStatus.erro("Error");
+                  },
                   secondaryLabel: "Adicionar da galeria",
-                  secondaryonPressed: () {}),
+                  secondaryonPressed: controller.scanWithImagePicker),
             ),
           ),
           ValueListenableBuilder<BarCodeScannerStatus>(
@@ -110,7 +110,9 @@ class _BarCodeScannerState extends State<BarCodeScanner> {
                     controller.scanWithCamera();
                   },
                   secondaryLabel: "Digitar código",
-                  secondaryonPressed: () {},
+                  secondaryonPressed: () {
+                    Navigator.pushReplacementNamed(context, "/insertboleto");
+                  },
                 );
               } else {
                 return Container();
