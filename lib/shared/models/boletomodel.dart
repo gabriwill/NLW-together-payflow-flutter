@@ -34,7 +34,7 @@ class BoletoModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'primaryKey': primaryKey,
+      'primaryKey': primaryKey.toString(),
       'name': name,
       'dueDate': dueDate,
       'value': value,
