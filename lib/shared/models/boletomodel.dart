@@ -8,30 +8,31 @@ class BoletoModel {
   final String? dueDate;
   final double? value;
   final String? barcode;
+  bool paid;
 
-  BoletoModel({
-    required this.primaryKey,
-    this.name,
-    this.dueDate,
-    this.value,
-    this.barcode,
-  });
+  BoletoModel(
+      {required this.primaryKey,
+      this.name,
+      this.dueDate,
+      this.value,
+      this.barcode,
+      this.paid = false});
 
   static String generateKey() => UniqueKey().hashCode.toString();
 
-  BoletoModel copyWith({
-    String? name,
-    String? dueDate,
-    double? value,
-    String? barcode,
-  }) {
+  BoletoModel copyWith(
+      {String? name,
+      String? dueDate,
+      double? value,
+      String? barcode,
+      bool? paid}) {
     return BoletoModel(
-      primaryKey: generateKey(),
-      name: name ?? this.name,
-      dueDate: dueDate ?? this.dueDate,
-      value: value ?? this.value,
-      barcode: barcode ?? this.barcode,
-    );
+        primaryKey: generateKey(),
+        name: name ?? this.name,
+        dueDate: dueDate ?? this.dueDate,
+        value: value ?? this.value,
+        barcode: barcode ?? this.barcode,
+        paid: paid ?? this.paid);
   }
 
   Map<String, dynamic> toMap() {
@@ -41,17 +42,18 @@ class BoletoModel {
       'dueDate': dueDate,
       'value': value,
       'barcode': barcode,
+      'paid': paid
     };
   }
 
   factory BoletoModel.fromMap(Map<String, dynamic> map) {
     return BoletoModel(
-      primaryKey: map['primaryKey'],
-      name: map['name'],
-      dueDate: map['dueDate'],
-      value: map['value'],
-      barcode: map['barcode'],
-    );
+        primaryKey: map['primaryKey'],
+        name: map['name'],
+        dueDate: map['dueDate'],
+        value: map['value'],
+        barcode: map['barcode'],
+        paid: map['paid']);
   }
 
   String toJson() => json.encode(toMap());
@@ -61,7 +63,7 @@ class BoletoModel {
 
   @override
   String toString() {
-    return 'BoletoModel(name: $name, dueDate: $dueDate, value: $value, barcode: $barcode)';
+    return 'BoletoModel(name: $name, dueDate: $dueDate, value: $value, barcode: $barcode, paid: $paid)';
   }
 
   @override
@@ -72,7 +74,8 @@ class BoletoModel {
         other.name == name &&
         other.dueDate == dueDate &&
         other.value == value &&
-        other.barcode == barcode;
+        other.barcode == barcode &&
+        other.paid == paid;
   }
 
   @override
@@ -81,6 +84,7 @@ class BoletoModel {
         name.hashCode ^
         dueDate.hashCode ^
         value.hashCode ^
-        barcode.hashCode;
+        barcode.hashCode ^
+        paid.hashCode;
   }
 }
