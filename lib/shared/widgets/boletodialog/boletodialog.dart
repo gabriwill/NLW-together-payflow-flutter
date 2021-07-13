@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:payflow/shared/models/boletomodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
+import 'package:payflow/shared/widgets/bottomsheet/bottomsheet.dart';
 
 class BoletoDialog extends StatelessWidget {
   final BoletoModel boleto;
@@ -10,111 +11,109 @@ class BoletoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heightScreen = MediaQuery.of(context).size.height;
-    return Dialog(
-      insetPadding:
-          EdgeInsets.only(right: 0, left: 0, bottom: 0, top: heightScreen / 2),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(40),
-              child: Text.rich(
-                TextSpan(
-                    text: "O boleto ",
-                    style: TextStyles.titleRegularHeading,
-                    children: [
-                      TextSpan(
-                          text: boleto.name ?? "Sem Nome",
-                          style: TextStyles.titleBoldHeading),
-                      TextSpan(
-                          text: " no valor de R\$ ",
-                          style: TextStyles.titleRegularHeading),
-                      TextSpan(
-                          text: boleto.value?.toStringAsFixed(2) ?? "0,00",
-                          style: TextStyles.titleBoldHeading),
-                      TextSpan(
-                          text: " já foi pago?",
-                          style: TextStyles.titleRegularHeading),
-                    ]),
-                textAlign: TextAlign.center,
-              ),
+    return BottomSheet(
+      backgroundColor: AppColors.background,
+      onClosing: () {},
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(40),
+            child: Text.rich(
+              TextSpan(
+                  text: "O boleto ",
+                  style: TextStyles.titleRegularHeading,
+                  children: [
+                    TextSpan(
+                        text: boleto.name ?? "Sem Nome",
+                        style: TextStyles.titleBoldHeading),
+                    TextSpan(
+                        text: " no valor de R\$ ",
+                        style: TextStyles.titleRegularHeading),
+                    TextSpan(
+                        text: boleto.value?.toStringAsFixed(2) ?? "0,00",
+                        style: TextStyles.titleBoldHeading),
+                    TextSpan(
+                        text: " já foi pago?",
+                        style: TextStyles.titleRegularHeading),
+                  ]),
+              textAlign: TextAlign.center,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  child: Container(
+                    height: 60,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        border: Border.fromBorderSide(
+                            BorderSide(color: AppColors.primary)),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          "Ainda não",
+                          style: TextStyles.buttonPrimary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  child: Container(
+                    height: 60,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          "Pago",
+                          style: TextStyles.buttonBoldBackground,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: AppColors.stroke,
+            height: 1,
+          ),
+          InkWell(
+            splashColor: AppColors.delete.withOpacity(0.8),
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    child: Container(
-                      height: 60,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          border: Border.fromBorderSide(
-                              BorderSide(color: AppColors.primary)),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text(
-                            "Ainda não",
-                            style: TextStyles.buttonPrimary,
-                          ),
-                        ),
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      FontAwesomeIcons.trashAlt,
+                      color: AppColors.delete,
                     ),
                   ),
-                  GestureDetector(
-                    child: Container(
-                      height: 60,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text(
-                            "Pago",
-                            style: TextStyles.buttonBoldBackground,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  Text(
+                    "Apagar Boleto",
+                    style: TextStyles.deleteText,
+                  )
                 ],
               ),
             ),
-            Container(
-              color: AppColors.stroke,
-              height: 1,
-            ),
-            InkWell(
-              splashColor: AppColors.delete.withOpacity(0.8),
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Icon(
-                        FontAwesomeIcons.trashAlt,
-                        color: AppColors.delete,
-                      ),
-                    ),
-                    Text(
-                      "Apagar Boleto",
-                      style: TextStyles.deleteText,
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

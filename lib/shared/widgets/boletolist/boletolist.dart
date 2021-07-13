@@ -34,7 +34,7 @@ class _BoletoListState extends State<BoletoList> {
                         duration: Duration(milliseconds: 400),
                         child: GestureDetector(
                           onLongPress: () {
-                            showDialog(
+                            showModalBottomSheet(
                                 context: context,
                                 builder: (context) => BoletoDialog(
                                       boleto: e,
