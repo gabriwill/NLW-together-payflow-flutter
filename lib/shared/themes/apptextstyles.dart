@@ -8,10 +8,20 @@ class TextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.heading,
   );
+  static final deleteText = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColors.delete,
+  );
   static final titleRegular = GoogleFonts.lexendDeca(
     fontSize: 20,
     fontWeight: FontWeight.w400,
     color: AppColors.background,
+  );
+  static final titleRegularHeading = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColors.heading,
   );
   static final titleBoldHeading = GoogleFonts.lexendDeca(
     fontSize: 20,

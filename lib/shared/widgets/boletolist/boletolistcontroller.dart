@@ -21,6 +21,22 @@ class BoletoListController {
     }
   }
 
+  Future<bool> delBoleto(BoletoModel boleto) async {
+    try {
+      if (boletos.any((element) => element.primaryKey == boleto.primaryKey)) {
+        final instance = await SharedPreferences.getInstance();
+        boletos
+            .removeWhere((element) => element.primaryKey == boleto.primaryKey);
+        List<String> listBoletos = boletos.map((e) => e.toJson()).toList();
+        return await instance.setStringList("boletos", listBoletos);
+      } else {
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
   void dispose() {
     boletosNotifier.dispose();
   }
