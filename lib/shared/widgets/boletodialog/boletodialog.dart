@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:payflow/shared/models/boletomodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
+import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 
 class BoletoDialog extends StatelessWidget {
   final BoletoModel boleto;
@@ -10,6 +11,8 @@ class BoletoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = BoletoListController();
+
     return BottomSheet(
       backgroundColor: AppColors.background,
       onClosing: () {},
@@ -90,8 +93,9 @@ class BoletoDialog extends StatelessWidget {
           ),
           InkWell(
             splashColor: AppColors.delete.withOpacity(0.8),
-            onTap: () {
-              Navigator.pop(context);
+            onTap: () async {
+              bool deletou = await controller.delBoleto(boleto);
+              if (deletou) Navigator.pop(context);
             },
             child: Container(
               child: Row(
