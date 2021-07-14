@@ -48,6 +48,9 @@ class BoletoDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
+                  onTap: () {
+                    boleto.paid = false;
+                  },
                   child: Container(
                     height: 60,
                     width: 150,
@@ -67,6 +70,9 @@ class BoletoDialog extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  onTap: () {
+                    boleto.paid = true;
+                  },
                   child: Container(
                     height: 60,
                     width: 150,
