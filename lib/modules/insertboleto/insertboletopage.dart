@@ -24,6 +24,7 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
 
   final venciInputTextController = MaskedTextController(mask: "00/00/0000");
   final barcodeInputTextController = TextEditingController();
+  bool _isPaid = false;
 
   @override
   void initState() {
@@ -110,6 +111,28 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                         validator: controller.validateCodigo,
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SwitchListTile(
+                        title: Text(
+                          'Pago',
+                          style: _isPaid
+                              ? TextStyles.buttonBoldPrimary
+                              : TextStyles.buttonBoldHeading,
+                        ),
+                        secondary: Icon(
+                          _isPaid ? Icons.paid : Icons.money_off,
+                          color:
+                              _isPaid ? AppColors.primary : AppColors.heading,
+                        ),
+                        value: _isPaid,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _isPaid = value;
+                          });
+                        },
+                      ),
+                    )
                   ],
                 ))
           ],
@@ -122,6 +145,7 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
         },
         secondaryLabel: "Cadastrar",
         secondaryonPressed: () async {
+          controller.model.paid = _isPaid;
           bool cadastrou = await controller.cadastrar();
           if (cadastrou) Navigator.pop(context);
         },
