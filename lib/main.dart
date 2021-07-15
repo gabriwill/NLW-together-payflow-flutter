@@ -8,6 +8,8 @@ void main() {
   runApp(AppFirebase());
 }
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 class AppFirebase extends StatefulWidget {
   // This widget is the root of your application.
   @override

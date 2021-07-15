@@ -8,6 +8,8 @@ import 'package:payflow/shared/models/usermodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
 
+import '../../main.dart';
+
 class HomePage extends StatefulWidget {
   final UserModel user;
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -16,7 +18,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with RouteAware {
   final controller = HomeController();
   final pages = [
     Container(
@@ -24,8 +26,31 @@ class _HomePageState extends State<HomePage> {
     ),
     Container(
       child: ExtratoPage(),
-    )
+    ),
   ];
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    //print('didPush Page2');
+  }
+
+  @override
+  void didPopNext() {
+    (context as Element).reassemble();
+    //print('didPopNext Page2');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

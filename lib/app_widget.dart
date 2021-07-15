@@ -4,6 +4,7 @@ import 'package:payflow/modules/barcodescanner/barcodescannerpage.dart';
 import 'package:payflow/modules/home/homepage.dart';
 import 'package:payflow/modules/splash/splashpage.dart';
 
+import 'main.dart';
 import 'modules/insertboleto/insertboletopage.dart';
 import 'modules/login/loginpage.dart';
 import 'shared/models/usermodel.dart';
@@ -25,6 +26,7 @@ class AppWidget extends StatelessWidget {
         primarySwatch: Colors.orange,
         primaryColor: AppColors.primary,
       ),
+      navigatorObservers: [routeObserver],
       initialRoute: "/splash",
       routes: {
         "/splash": (context) => SplashPage(),
