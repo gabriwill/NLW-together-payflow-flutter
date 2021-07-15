@@ -33,12 +33,13 @@ class _BoletoListState extends State<BoletoList> {
                         initDelay: Duration(milliseconds: 0),
                         duration: Duration(milliseconds: 400),
                         child: GestureDetector(
-                          onLongPress: () {
-                            showModalBottomSheet(
+                          onLongPress: () async {
+                            await showModalBottomSheet(
                                 context: context,
                                 builder: (context) => BoletoDialog(
                                       boleto: e,
                                     ));
+                            controller.getBoletos();
                           },
                           child: Container(
                             color: AppColors.background,
