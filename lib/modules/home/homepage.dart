@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
 
   @override
   void didPopNext() {
+    // ignore: invalid_use_of_protected_member
     (context as Element).reassemble();
     //print('didPopNext Page2');
   }
