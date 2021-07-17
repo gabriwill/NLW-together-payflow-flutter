@@ -14,6 +14,7 @@ class BarcodeScannerController {
   var barcodeScanner = GoogleMlKit.vision.barcodeScanner();
 
   CameraController? cameraController;
+  bool _isDisposed = false;
 
   void getAvailableCamera() async {
     try {
@@ -106,14 +107,16 @@ class BarcodeScannerController {
   void scanWithCamera() {
     status = BarCodeScannerStatus.available();
     Future.delayed(Duration(seconds: 20)).then((value) {
-      if (status.hasBarcode == false)
+      if (status.hasBarcode == false && _isDisposed == false) {
         status = BarCodeScannerStatus.erro("Timeout de leitura de boleto");
+      }
     });
   }
 
   void dispose() {
     statusNotifier.dispose();
     barcodeScanner.close();
+    _isDisposed = true;
     if (status.showCamera || cameraController != null) {
       cameraController!.dispose();
     }
