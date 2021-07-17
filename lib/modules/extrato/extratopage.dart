@@ -37,7 +37,7 @@ class _ExtratoPageState extends State<ExtratoPage> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: BoletoList(
               key: UniqueKey(),
-              controller: bListcontroller,
+              controller: widget.bListcontroller ?? bListcontroller,
             ),
           )
         ],
