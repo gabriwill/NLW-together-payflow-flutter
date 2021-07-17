@@ -7,25 +7,26 @@ import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 import 'package:payflow/shared/widgets/boletotile/boletotile.dart';
 
 class BoletoList extends StatefulWidget {
-  const BoletoList({Key? key}) : super(key: key);
+  final BoletoListController controller;
+  const BoletoList({Key? key, required this.controller}) : super(key: key);
 
   @override
   _BoletoListState createState() => _BoletoListState();
 }
 
 class _BoletoListState extends State<BoletoList> {
-  final controller = BoletoListController();
+  //final controller = BoletoListController();
 
   @override
   void dispose() {
-    controller.dispose();
+    //controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<BoletoModel>>(
-        valueListenable: controller.boletosNotifier,
+        valueListenable: widget.controller.boletosNotifier,
         builder: (_, boletos, __) => Column(
               children: boletos
                   .map((e) => AnimatedCard(
@@ -39,7 +40,7 @@ class _BoletoListState extends State<BoletoList> {
                                 builder: (context) => BoletoDialog(
                                       boleto: e,
                                     ));
-                            controller.getBoletos();
+                            widget.controller.getBoletos();
                           },
                           child: Container(
                             color: AppColors.background,

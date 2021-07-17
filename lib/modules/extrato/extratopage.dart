@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolist.dart';
+import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 
 class ExtratoPage extends StatefulWidget {
-  ExtratoPage({Key? key}) : super(key: key);
+  final BoletoListController? bListcontroller;
+  ExtratoPage({Key? key, this.bListcontroller}) : super(key: key);
 
   @override
   _ExtratoPageState createState() => _ExtratoPageState();
 }
 
 class _ExtratoPageState extends State<ExtratoPage> {
+  final bListcontroller = BoletoListController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,6 +37,7 @@ class _ExtratoPageState extends State<ExtratoPage> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: BoletoList(
               key: UniqueKey(),
+              controller: bListcontroller,
             ),
           )
         ],

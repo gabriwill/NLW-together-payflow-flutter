@@ -7,6 +7,7 @@ import 'package:payflow/modules/meusboletos/meusboletospage.dart';
 import 'package:payflow/shared/models/usermodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
+import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 
 import '../../main.dart';
 
@@ -20,14 +21,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with RouteAware {
   final controller = HomeController();
-  final pages = [
-    Container(
-      child: MeusBoletosPage(),
-    ),
-    Container(
-      child: ExtratoPage(),
-    ),
-  ];
+  final bListController = BoletoListController();
+  List<Widget>? pages;
+  _HomePageState() {
+    pages = [
+      Container(
+        child: MeusBoletosPage(
+          bListcontroller: bListController,
+        ),
+      ),
+      Container(
+        child: ExtratoPage(
+          bListcontroller: bListController,
+        ),
+      ),
+    ];
+  }
+  @override
+  void initState() {
+    pages = [
+      Container(
+        child: MeusBoletosPage(
+          bListcontroller: bListController,
+        ),
+      ),
+      Container(
+        child: ExtratoPage(
+          bListcontroller: bListController,
+        ),
+      ),
+    ];
+    super.initState();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -37,6 +63,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
+    bListController.dispose();
     super.dispose();
   }
 
@@ -48,7 +75,8 @@ class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void didPopNext() {
     // ignore: invalid_use_of_protected_member
-    (context as Element).reassemble();
+    //(context as Element).reassemble();
+    bListController.getBoletos();
     //print('didPopNext Page2');
   }
 
@@ -88,7 +116,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
           ),
         ),
       ),
-      body: pages[controller.currentPage],
+      body: pages![controller.currentPage],
       bottomNavigationBar: Container(
         height: 90,
         child: Row(

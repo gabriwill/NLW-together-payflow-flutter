@@ -6,14 +6,15 @@ import 'package:payflow/shared/themes/apptextstyles.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 
 class BoletoInfo extends StatefulWidget {
-  BoletoInfo({Key? key}) : super(key: key);
+  final BoletoListController controller;
+  BoletoInfo({Key? key, required this.controller}) : super(key: key);
 
   @override
   _BoletoInfoState createState() => _BoletoInfoState();
 }
 
 class _BoletoInfoState extends State<BoletoInfo> {
-  final controller = BoletoListController();
+  //final controller = BoletoListController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,7 +41,7 @@ class _BoletoInfoState extends State<BoletoInfo> {
                 color: AppColors.background,
               ),
               ValueListenableBuilder<List<BoletoModel>>(
-                  valueListenable: controller.boletosNotifier,
+                  valueListenable: widget.controller.boletosNotifier,
                   builder: (_, boletos, __) => Text.rich(TextSpan(
                         text: "Você tem ",
                         style: TextStyles.captionBackground,

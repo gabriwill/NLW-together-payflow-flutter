@@ -4,15 +4,19 @@ import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
 import 'package:payflow/shared/widgets/boletoinfo/boletoinfo.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolist.dart';
+import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 
 class MeusBoletosPage extends StatefulWidget {
-  const MeusBoletosPage({Key? key}) : super(key: key);
+  final BoletoListController bListcontroller;
+  const MeusBoletosPage({Key? key, required this.bListcontroller})
+      : super(key: key);
 
   @override
   _MeusBoletosPageState createState() => _MeusBoletosPageState();
 }
 
 class _MeusBoletosPageState extends State<MeusBoletosPage> {
+  //final bListcontroller = BoletoListController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -30,6 +34,7 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
                   direction: AnimatedCardDirection.left,
                   child: BoletoInfo(
                     key: UniqueKey(),
+                    controller: widget.bListcontroller,
                   ),
                 ),
               ],
@@ -53,6 +58,7 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: BoletoList(
               key: UniqueKey(),
+              controller: widget.bListcontroller,
             ),
           )
         ],
