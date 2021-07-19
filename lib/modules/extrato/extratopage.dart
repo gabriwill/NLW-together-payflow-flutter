@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:payflow/shared/models/boletomodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolist.dart';
@@ -22,8 +23,22 @@ class _ExtratoPageState extends State<ExtratoPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Meus extratos", style: TextStyles.titleBoldHeading),
+                ValueListenableBuilder<List<BoletoModel>>(
+                  valueListenable: widget.bListcontroller?.boletosNotifier ??
+                      bListcontroller.boletosNotifier,
+                  builder: (_, boletos, __) => Text.rich(TextSpan(
+                      text: boletos.length.toString(),
+                      style: TextStyles.captionBody,
+                      children: [
+                        TextSpan(
+                          text: " Boletos",
+                          style: TextStyles.captionBody,
+                        )
+                      ])),
+                ),
               ],
             ),
           ),
