@@ -1,11 +1,13 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:payflow/modules/insertboleto/insertboletocontroller.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
+import 'package:payflow/shared/utils/convertdatatimetostring.dart';
 import 'package:payflow/shared/widgets/inputtext/inputtext.dart';
 import 'package:payflow/shared/widgets/setlabelbuttons/setlabelbuttons.dart';
 
@@ -77,6 +79,25 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: InputTextWidget(
                         controller: venciInputTextController,
+                        readOnly: true,
+                        onTap: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              theme: DatePickerTheme(
+                                  doneStyle: TextStyles.buttonBoldPrimary,
+                                  cancelStyle: TextStyles.buttonHeading,
+                                  itemStyle: TextStyles.buttonBoldGray,
+                                  backgroundColor: AppColors.stroke,
+                                  headerColor: AppColors.stroke),
+                              minTime: DateTime(2010, 3, 5),
+                              maxTime: DateTime(2122, 6, 7), onConfirm: (date) {
+                            String text = convertDatatimeToString(date);
+                            venciInputTextController.text = text;
+                            controller.onChanged(vencimento: text);
+                          },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.pt);
+                        },
                         label: "Vencimento",
                         icon: FontAwesomeIcons.timesCircle,
                         onChanged: (value) {

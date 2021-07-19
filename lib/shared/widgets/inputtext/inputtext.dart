@@ -9,6 +9,8 @@ class InputTextWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final Function(String value) onChanged;
+  final bool? readOnly;
+  final Function()? onTap;
 
   const InputTextWidget({
     Key? key,
@@ -16,6 +18,8 @@ class InputTextWidget extends StatelessWidget {
     required this.icon,
     this.initialValue,
     this.validator,
+    this.readOnly,
+    this.onTap,
     this.controller,
     required this.onChanged,
   }) : super(key: key);
@@ -27,8 +31,10 @@ class InputTextWidget extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            readOnly: readOnly ?? false,
             initialValue: initialValue,
             validator: validator,
+            onTap: onTap,
             controller: controller,
             onChanged: onChanged,
             style: TextStyles.input,
