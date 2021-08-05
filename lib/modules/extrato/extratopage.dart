@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:payflow/shared/models/boletomodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
+import 'package:payflow/shared/utils/filter/filterparams.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolist.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 
@@ -53,6 +54,7 @@ class _ExtratoPageState extends State<ExtratoPage> {
             child: BoletoList(
               key: UniqueKey(),
               controller: widget.bListcontroller ?? bListcontroller,
+              filter: FilterParams(isPaid: true),
             ),
           )
         ],

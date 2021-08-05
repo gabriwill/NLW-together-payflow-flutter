@@ -2,6 +2,7 @@ import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 import 'package:payflow/shared/themes/apptextstyles.dart';
+import 'package:payflow/shared/utils/filter/filterparams.dart';
 import 'package:payflow/shared/widgets/boletoinfo/boletoinfo.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolist.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
@@ -59,6 +60,7 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
             child: BoletoList(
               key: UniqueKey(),
               controller: widget.bListcontroller,
+              filter: FilterParams(isPaid: false),
             ),
           )
         ],
