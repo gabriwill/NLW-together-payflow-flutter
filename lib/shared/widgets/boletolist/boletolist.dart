@@ -1,14 +1,22 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+
 import 'package:payflow/shared/models/boletomodel.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
+import 'package:payflow/shared/utils/filter/botelolistfilter.dart';
+import 'package:payflow/shared/utils/filter/filterparams.dart';
 import 'package:payflow/shared/widgets/boletodialog/boletodialog.dart';
 import 'package:payflow/shared/widgets/boletolist/boletolistcontroller.dart';
 import 'package:payflow/shared/widgets/boletotile/boletotile.dart';
 
 class BoletoList extends StatefulWidget {
   final BoletoListController controller;
-  const BoletoList({Key? key, required this.controller}) : super(key: key);
+  final FilterParams? filter;
+  const BoletoList({
+    Key? key,
+    required this.controller,
+    this.filter,
+  }) : super(key: key);
 
   @override
   _BoletoListState createState() => _BoletoListState();
@@ -28,7 +36,7 @@ class _BoletoListState extends State<BoletoList> {
     return ValueListenableBuilder<List<BoletoModel>>(
         valueListenable: widget.controller.boletosNotifier,
         builder: (_, boletos, __) => Column(
-              children: boletos
+              children: boletosFilter(boletos, widget.filter)!
                   .map((e) => AnimatedCard(
                         direction: AnimatedCardDirection.right,
                         initDelay: Duration(milliseconds: 0),
